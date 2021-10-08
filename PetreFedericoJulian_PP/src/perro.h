@@ -21,5 +21,8 @@ typedef struct {
 	int banderaPerro;
 } perro;
 
+perro perro_hardcodearPerro(int id, char* nombre, char* raza, int edad);
+int perro_mostrarPerros(perro* perritos, int cantidadPerritos);
+int perro_encontrarPerroPorID(perro* perritos, int cantidadPerritos, int id);
 
 #endif /* PERRO_H_ */
