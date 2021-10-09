@@ -13,6 +13,7 @@
 
 #define OCUPADA 1
 #define DISPONIBLE 0
+#define CANTESTADIAS 10
 
 typedef struct{
 	int dia;
@@ -35,6 +36,7 @@ int estadiaDiaria_encontrarEstadiaVacia(EstadiaDiaria* estadias, int cantidadEst
 Fecha estadiaDiaria_registrarFecha(void);
 EstadiaDiaria estadiaDiaria_reservarEstadia(int id, char* nombreDuenio, int telefono, int idPerro, Fecha fecha, perro* perritos, int cantidadPerritos);
 int estadiaDiaria_registrarReserva(EstadiaDiaria* estadias, int cantidadEstadias, int idEstadia, perro* perritos, int cantidadPerritos);
+int estadiaDiaria_mostrarEstadia(EstadiaDiaria estadia);
 
 
 

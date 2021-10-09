@@ -23,6 +23,7 @@ int main(void) {
 	int opcion = -1;
 	int contadorEstadias = 0;
 	int idEstadia = 100000;
+	int confirmacionReserva;
 
 	EstadiaDiaria estadias[30];
 
@@ -38,7 +39,14 @@ int main(void) {
 		 {
 			 case 1:
 				 printf("Ha elejido la opcion 1- RESERVAR ESTADIA\n");
-				 estadiaDiaria_registrarReserva(estadias, 39, idEstadia , perros, 5);
+				 confirmacionReserva = estadiaDiaria_registrarReserva(estadias, CANTESTADIAS, idEstadia , perros, 5);
+				 contadorEstadias++;
+				 idEstadia++;
+				 if(confirmacionReserva == -1)
+				 {
+					 contadorEstadias--;
+					 idEstadia--;
+				 }
 				 break;
 			 case 2:
 				 printf("Ha elejido la opcion 2- MODIFICAR ESTADIA\n");
@@ -91,10 +99,5 @@ int main(void) {
 		 }
 
 	}
-
-
-
-
-
 	return EXIT_SUCCESS;
 }
