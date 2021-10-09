@@ -67,6 +67,7 @@ int main(void) {
 				 }
 				 else
 				 {
+					 estadiaDiaria_cancelarEstadia(estadias, CANTESTADIAS);
 					 contadorEstadias--;
 				 }
 

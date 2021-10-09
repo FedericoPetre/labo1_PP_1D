@@ -38,6 +38,7 @@ int estadiaDiaria_mostrarEstadia(EstadiaDiaria estadia);
 int estadiaDiaria_mostrarEstadias(EstadiaDiaria* estadias, int cantidadEstadias);
 int estadiaDiaria_encontrarEstadiaPorID(EstadiaDiaria* estadias, int cantidadEstadias, int id);
 int estadiaDiaria_mostrarIDS(EstadiaDiaria* estadias, int cantidadEstadias);
+int estadiaDiaria_cancelarEstadia(EstadiaDiaria* estadias, int cantidadEstadias);
 
 
 

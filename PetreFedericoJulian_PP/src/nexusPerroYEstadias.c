@@ -60,10 +60,12 @@ int nexusPerroYEstadias_registrarReserva(EstadiaDiaria* estadias, int cantidadEs
 
 			if(respuesta == 's')
 			{
+				printf("Estadia reservada con exito\n");
 				retorno = 0;
 			}
 			else
 			{
+				printf("Se ha cancelado la reserva de estadia\n");
 				retorno = -1;
 			}
 		}

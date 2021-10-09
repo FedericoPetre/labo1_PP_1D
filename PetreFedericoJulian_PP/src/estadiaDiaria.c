@@ -134,6 +134,37 @@ int estadiaDiaria_mostrarIDS(EstadiaDiaria* estadias, int cantidadEstadias)
 	return retorno;
 }
 
+int estadiaDiaria_cancelarEstadia(EstadiaDiaria* estadias, int cantidadEstadias)
+{
+	int retorno = -1;
+	int idEstadiaAux;
+	int indiceEstadiaAux;
+
+	if(estadias != NULL && cantidadEstadias > 0)
+	{
+		printf("Mostrando IDS de estadias\n");
+		estadiaDiaria_mostrarIDS(estadias, cantidadEstadias);
+		funcionesInputs_pedirYValidarEntero("\nIngrese ID de la estadia a cancelar\n", "Error, reingrese ID de la estadia a cancelar\n", 100000, 150000, &idEstadiaAux);
+
+		indiceEstadiaAux = estadiaDiaria_encontrarEstadiaPorID(estadias, cantidadEstadias, idEstadiaAux);
+
+		if(indiceEstadiaAux != -1)
+		{
+			estadias[indiceEstadiaAux].estadoReserva = VACIO;
+			retorno = 0;
+			printf("La estadia ha sido cancelada con exito\n");
+
+		}
+		else
+		{
+			printf("Error, no se encontro la estadia\n");
+		}
+	}
+	return retorno;
+}
+
+
+
 
 
 
