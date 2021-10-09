@@ -13,9 +13,8 @@
 #include <string.h>
 #include <ctype.h>
 
-#include "perro.h"
 #include "funcionesInputs.h"
-#include "estadiaDiaria.h"
+#include "nexusPerroYEstadias.h"
 
 
 int main(void) {
@@ -39,7 +38,7 @@ int main(void) {
 		 {
 			 case 1:
 				 printf("Ha elejido la opcion 1- RESERVAR ESTADIA\n");
-				 confirmacionReserva = estadiaDiaria_registrarReserva(estadias, CANTESTADIAS, idEstadia , perros, 5);
+				 confirmacionReserva = nexusPerroYEstadias_registrarReserva(estadias, CANTESTADIAS, idEstadia , perros, CANTPERROS);
 				 contadorEstadias++;
 				 idEstadia++;
 				 if(confirmacionReserva == -1)
@@ -54,6 +53,10 @@ int main(void) {
 				 {
 					 printf("Error, primero hay que reservar una estadia\n");
 				 }
+				 else
+				 {
+					 nexusPerroYEstadias_modificarEstadia(estadias, CANTESTADIAS, perros, CANTPERROS);
+				 }
 
 				 break;
 			 case 3:
@@ -61,6 +64,10 @@ int main(void) {
 				 if(contadorEstadias == 0)
 				 {
 					 printf("Error, primero hay que reservar una estadia\n");
+				 }
+				 else
+				 {
+					 contadorEstadias--;
 				 }
 
 				 break;
@@ -81,6 +88,10 @@ int main(void) {
 				 if(contadorEstadias == 0)
 				 {
 					 printf("Error, primero hay que reservar una estadia\n");
+				 }
+				 else
+				 {
+					 perro_mostrarPerros(perros, CANTPERROS);
 				 }
 
 				 break;

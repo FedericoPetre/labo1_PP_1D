@@ -10,6 +10,7 @@
 
 #define VACIO 0
 #define OCUPADO 1
+#define CANTPERROS 5
 
 #include "funcionesInputs.h"
 
