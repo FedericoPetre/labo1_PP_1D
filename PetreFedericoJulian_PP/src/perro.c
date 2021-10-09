@@ -7,7 +7,7 @@
 
 #include "perro.h"
 
-perro perro_hardcodearPerro(int id, char* nombre, char* raza, int edad)
+perro perro_cargarPerro(int id, char* nombre, char* raza, int edad)
 {
 	perro perroAux;
 
@@ -54,7 +54,7 @@ int perro_encontrarPerroPorID(perro* perritos, int cantidadPerritos, int id)
 	{
 		for(i=0; i<cantidadPerritos; i++)
 		{
-			if(perritos[i].id == id)
+			if(perritos[i].id == id && perritos[i].banderaPerro == OCUPADO)
 			{
 				indiceEncontrado = i;
 				break;
@@ -63,5 +63,27 @@ int perro_encontrarPerroPorID(perro* perritos, int cantidadPerritos, int id)
 
 	}
 	return indiceEncontrado;
+}
+
+int perro_mostrarIdPerros(perro* perritos, int cantidadPerritos)
+{
+	int retorno = -1;
+	int i;
+
+	if(perritos != NULL && cantidadPerritos > 0)
+	{
+		printf("Mostrando IDS de los Perros...\n");
+		for(i=0; i<cantidadPerritos; i++)
+		{
+			if(perritos[i].banderaPerro == OCUPADO)
+			{
+				printf("%d- ", perritos[i].id);
+				retorno = 0;
+			}
+		}
+	}
+
+	return retorno;
+
 }
 

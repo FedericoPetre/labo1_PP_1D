@@ -15,18 +15,18 @@
 
 #include "perro.h"
 #include "funcionesInputs.h"
+#include "estadiaDiaria.h"
 
 
 int main(void) {
 	setbuf(stdout, NULL);
 	int opcion = -1;
 	int contadorEstadias = 0;
+	int idEstadia = 100000;
 
-	perro perros[3];
+	EstadiaDiaria estadias[30];
 
-	perros[0] = perro_hardcodearPerro(7000, "Lobo", "Sharpei", 2);
-	perros[1] = perro_hardcodearPerro(7001, "Sheila", "Golden", 12);
-	perros[2] = perro_hardcodearPerro(7002, "Reina", "Galgo", 13);
+	perro perros[3] ={{7000, "Lobo", "Sharpei", 2, OCUPADO},{7001, "Sheila", "Golden", 12, OCUPADO},{7002, "Reina", "Galgo", 13, OCUPADO}};
 
 	printf("Bienvenido a la guardería de perros\n");
 
@@ -38,7 +38,7 @@ int main(void) {
 		 {
 			 case 1:
 				 printf("Ha elejido la opcion 1- RESERVAR ESTADIA\n");
-
+				 estadiaDiaria_registrarReserva(estadias, 39, idEstadia , perros, 5);
 				 break;
 			 case 2:
 				 printf("Ha elejido la opcion 2- MODIFICAR ESTADIA\n");

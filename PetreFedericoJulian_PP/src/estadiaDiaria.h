@@ -32,9 +32,9 @@ typedef struct{
 
 int estadiaDiaria_inicializarEstadias(EstadiaDiaria* estadias, int cantidadEstadias);
 int estadiaDiaria_encontrarEstadiaVacia(EstadiaDiaria* estadias, int cantidadEstadias);
-Fecha estadiaDiaria_registrarFecha(Fecha fechaIngresada);
+Fecha estadiaDiaria_registrarFecha(void);
 EstadiaDiaria estadiaDiaria_reservarEstadia(int id, char* nombreDuenio, int telefono, int idPerro, Fecha fecha, perro* perritos, int cantidadPerritos);
-int estadiaDiaria_registrarReserva(EstadiaDiaria* estadias, int cantidadEstadias, int idEstadia);
+int estadiaDiaria_registrarReserva(EstadiaDiaria* estadias, int cantidadEstadias, int idEstadia, perro* perritos, int cantidadPerritos);
 
 
 
