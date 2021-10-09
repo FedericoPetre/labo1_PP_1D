@@ -70,6 +70,10 @@ int main(void) {
 				 {
 					 printf("Error, primero hay que reservar una estadia\n");
 				 }
+				 else
+				 {
+					 estadiaDiaria_mostrarEstadias(estadias,CANTESTADIAS);// corregir. tienen que mostrarse de acuerdo a las fechas más nuevas. (si son iguales, por nombre del duenio).
+				 }
 
 				 break;
 			 case 5:

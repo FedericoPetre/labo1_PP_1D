@@ -37,6 +37,9 @@ Fecha estadiaDiaria_registrarFecha(void);
 EstadiaDiaria estadiaDiaria_reservarEstadia(int id, char* nombreDuenio, int telefono, int idPerro, Fecha fecha, perro* perritos, int cantidadPerritos);
 int estadiaDiaria_registrarReserva(EstadiaDiaria* estadias, int cantidadEstadias, int idEstadia, perro* perritos, int cantidadPerritos);
 int estadiaDiaria_mostrarEstadia(EstadiaDiaria estadia);
+int estadiaDiaria_mostrarEstadias(EstadiaDiaria* estadias, int cantidadEstadias);
+int estadiaDiaria_encontrarEstadiaPorID(EstadiaDiaria* estadias, int cantidadEstadias, int id);
+// int estadiaDiaria_modificarEstadia(EstadiaDiaria* estadias, int cantidadEstadias, perro* perritos, int cantidadPerritos);
 
 
 

@@ -25,5 +25,6 @@ perro perro_cargarPerro(int id, char* nombre, char* raza, int edad);
 int perro_mostrarPerros(perro* perritos, int cantidadPerritos);
 int perro_encontrarPerroPorID(perro* perritos, int cantidadPerritos, int id);
 int perro_mostrarIdPerros(perro* perritos, int cantidadPerritos);
+int perro_modificarPerro(perro* perritos, int cantidadPerritos, int idPerro);
 
 #endif /* PERRO_H_ */
