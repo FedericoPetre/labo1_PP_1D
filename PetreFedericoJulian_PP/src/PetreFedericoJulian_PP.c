@@ -38,7 +38,7 @@ int main(void) {
 		 {
 			 case 1:
 				 printf("Ha elejido la opcion 1- RESERVAR ESTADIA\n");
-				 confirmacionReserva = nexusPerroYEstadias_registrarReserva(estadias, CANTESTADIAS, idEstadia , perros, CANTPERROS);
+				 confirmacionReserva = nexusPerroYEstadias_AltaEstadia(estadias, CANTESTADIAS, idEstadia , perros, CANTPERROS);
 				 contadorEstadias++;
 				 idEstadia++;
 				 if(confirmacionReserva == -1)
@@ -67,7 +67,7 @@ int main(void) {
 				 }
 				 else
 				 {
-					 estadiaDiaria_cancelarEstadia(estadias, CANTESTADIAS);
+					 estadiaDiaria_bajaEstadia(estadias, CANTESTADIAS);
 					 contadorEstadias--;
 				 }
 
@@ -80,7 +80,8 @@ int main(void) {
 				 }
 				 else
 				 {
-					 estadiaDiaria_mostrarEstadias(estadias,CANTESTADIAS);// corregir. tienen que mostrarse de acuerdo a las fechas más nuevas. (si son iguales, por nombre del duenio).
+					 estadiaDiaria_ordenarEstadiasPorFecha(estadias,CANTESTADIAS);
+					 estadiaDiaria_listarEstadias(estadias,CANTESTADIAS);
 				 }
 
 				 break;
@@ -92,7 +93,7 @@ int main(void) {
 				 }
 				 else
 				 {
-					 perro_mostrarPerros(perros, CANTPERROS);
+					 nexusPerroYEstadias_listarPerros(estadias,CANTESTADIAS, perros, CANTPERROS);
 				 }
 
 				 break;

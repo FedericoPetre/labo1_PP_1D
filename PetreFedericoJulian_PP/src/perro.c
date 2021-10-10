@@ -33,14 +33,14 @@ perro perro_cargarPerro(int id, char* nombre, char* raza, int edad)
 }
 
 /**
- * @fn int perro_mostrarPerros(perro*, int)
+ * @fn int perro_listarPerros(perro*, int)
  * @brief Muestra todos los perritos cargados de una lista
  *
  * @param perritos lista de perritos
  * @param cantidadPerritos cantidad de perritos de la lista (incluye todos, cargados y no cargados)
  * @return Retorna -1 si la lista esta vacia o la cantidad de perritos es no valida. En caso de poder mostrarlos retorna 0
  */
-int perro_mostrarPerros(perro* perritos, int cantidadPerritos)
+int perro_listarPerros(perro* perritos, int cantidadPerritos)
 {
 	int retorno = -1;
 	int i;
@@ -126,7 +126,7 @@ int perro_mostrarIdPerros(perro* perritos, int cantidadPerritos)
  * @param perritos Listado de perritos, se busca el perrito a ser modificado por ID.
  * @param cantidadPerritos Longitud de la lista de perritos.
  * @param idPerro ID del perrito a ser modificado (si es que se encuentra en la lista).
- * @return Retorna -1 en caso de que los parametros ingresados son invalidos o que el perrito no se encontro para modificar. Retorna 0 en caso contrario.
+ * @return Retorna -1 en caso de que los parametros ingresados son invalidos o que el perrito no se encontro para modificar o que el usuario decidio no modificar los datos del perro. Retorna 0 en caso contrario.
  */
 int perro_modificarPerro(perro* perritos, int cantidadPerritos, int idPerro)
 {
@@ -135,6 +135,7 @@ int perro_modificarPerro(perro* perritos, int cantidadPerritos, int idPerro)
 	char nombrePerroAux[21];
 	char razaPerroAux[21];
 	int edadPerroAux;
+	char respuesta;
 
 	if(perritos != NULL && cantidadPerritos > 0)
 	{
@@ -147,9 +148,50 @@ int perro_modificarPerro(perro* perritos, int cantidadPerritos, int idPerro)
 			funcionesInputs_pedirYValidarCadena("Ingrese nuevo nombre del perro (max 21 caracteres)\n", "Error, reingrese nuevo nombre del perro (max 21 caracteres)\n", 21, nombrePerroAux);
 			funcionesInputs_pedirYValidarCadena("Ingrese nueva raza del perro (max 21 caracteres)\n", "Error, reingrese nueva raza del perro (max 21 caracteres)\n", 21, razaPerroAux);
 			funcionesInputs_pedirYValidarEntero("Ingrese nueva edad del perro (min: 0, max: 20)\n", "Error, reingrese nueva edad del perro (min: 0, max: 20)\n", 0, 20, &edadPerroAux);
-			perritos[indicePerro] = perro_cargarPerro(idPerro, nombrePerroAux, razaPerroAux, edadPerroAux);
-			retorno = 0;
 
+			funcionesInputs_pedirYValidarCaracter("Esta seguro que desea modificar los datos del perro?(s/n)\n", "Error, esta seguro que desea modificar los datos del perro?(s/n)\n", &respuesta);
+
+			if(respuesta == 's')
+			{
+				perritos[indicePerro] = perro_cargarPerro(idPerro, nombrePerroAux, razaPerroAux, edadPerroAux);
+				printf("Datos del perro modificados con exito\n");
+				retorno = 0;
+			}
+			else
+			{
+				retorno = -1;
+			}
+		}
+		else
+		{
+			retorno = -1;
+		}
+	}
+	return retorno;
+}
+
+/**
+ * @fn int perro_mostrarPerroPorID(perro*, int, int)
+ * @brief Muestra un perrito segun el ID ingresado (si existe, lo muestra)
+ *
+ * @param perritos listado de perritos donde se busca por ID
+ * @param cantidadPerritos longitud del listado
+ * @param id ID del perro buscado
+ * @return Retorna -1 en caso de no encontrar el perrito o parametros invalidos. 0 En caso de mostrarlo.
+ */
+int perro_mostrarPerroPorID(perro* perritos, int cantidadPerritos, int id)
+{
+	int retorno = -1;
+	int indexPerro;
+
+	if(perritos != NULL && cantidadPerritos > 0)
+	{
+		indexPerro = perro_encontrarPerroPorID(perritos,cantidadPerritos, id);
+
+		if(indexPerro != -1)
+		{
+			printf("%-22d %-22s %-22s %-22d\n", perritos[indexPerro].id, perritos[indexPerro].nombre, perritos[indexPerro].raza, perritos[indexPerro].edad);
+			retorno = 0;
 		}
 		else
 		{

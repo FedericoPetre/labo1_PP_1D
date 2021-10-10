@@ -35,10 +35,12 @@ int estadiaDiaria_inicializarEstadias(EstadiaDiaria* estadias, int cantidadEstad
 int estadiaDiaria_encontrarEstadiaVacia(EstadiaDiaria* estadias, int cantidadEstadias);
 Fecha estadiaDiaria_registrarFecha(void);
 int estadiaDiaria_mostrarEstadia(EstadiaDiaria estadia);
-int estadiaDiaria_mostrarEstadias(EstadiaDiaria* estadias, int cantidadEstadias);
+int estadiaDiaria_listarEstadias(EstadiaDiaria* estadias, int cantidadEstadias);
 int estadiaDiaria_encontrarEstadiaPorID(EstadiaDiaria* estadias, int cantidadEstadias, int id);
 int estadiaDiaria_mostrarIDS(EstadiaDiaria* estadias, int cantidadEstadias);
-int estadiaDiaria_cancelarEstadia(EstadiaDiaria* estadias, int cantidadEstadias);
+int estadiaDiaria_bajaEstadia(EstadiaDiaria* estadias, int cantidadEstadias);
+int estadiaDiaria_compararFechas(Fecha fecha1, Fecha fecha2);
+int estadiaDiaria_ordenarEstadiasPorFecha(EstadiaDiaria* estadias, int cantidadEstadias);
 
 
 

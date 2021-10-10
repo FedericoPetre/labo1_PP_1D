@@ -7,6 +7,14 @@
 
 #include "estadiaDiaria.h"
 
+/**
+ * @fn int estadiaDiaria_inicializarEstadias(EstadiaDiaria*, int)
+ * @brief Para inicializar el listado de estadias (todas se inicializaran en VACIO)
+ *
+ * @param estadias listado de las estadias a inicializar
+ * @param cantidadEstadias longitud de la lsita
+ * @return Retorna -1 si hay error (parametros invalidos), 0 si las pudo inicializar
+ */
 int estadiaDiaria_inicializarEstadias(EstadiaDiaria* estadias, int cantidadEstadias)
 {
 	int retorno = -1;
@@ -23,6 +31,14 @@ int estadiaDiaria_inicializarEstadias(EstadiaDiaria* estadias, int cantidadEstad
 	return retorno;
 }
 
+/**
+ * @fn int estadiaDiaria_encontrarEstadiaVacia(EstadiaDiaria*, int)
+ * @brief Buscar el primer lugar vacio en la lista de estadias
+ *
+ * @param estadias Listado de las estadias donde se busca el lugar vacio
+ * @param cantidadEstadias longitud de la lista
+ * @return Retorna -1 si no encuentra un lugar vacio. Caso contrario retorna el indice de la primer posicion vacia
+ */
 int estadiaDiaria_encontrarEstadiaVacia(EstadiaDiaria* estadias, int cantidadEstadias)
 {
 	int indiceEstadiaVacia=-1;
@@ -42,6 +58,12 @@ int estadiaDiaria_encontrarEstadiaVacia(EstadiaDiaria* estadias, int cantidadEst
 	return indiceEstadiaVacia;
 }
 
+/**
+ * @fn Fecha estadiaDiaria_registrarFecha(void)
+ * @brief Para registrar el ingreso de una fecha
+ *
+ * @return Retorna la fecha ingresada
+ */
 Fecha estadiaDiaria_registrarFecha(void)
 {
 	Fecha fechaIngresada;
@@ -53,6 +75,13 @@ Fecha estadiaDiaria_registrarFecha(void)
 	return fechaIngresada;
 }
 
+/**
+ * @fn int estadiaDiaria_mostrarEstadia(EstadiaDiaria)
+ * @brief Mostrar los datos de una estadia si se encuentra ocupada
+ *
+ * @param estadia Estadia que sera mostrada en caso de estar ocupada
+ * @return Retorna -1 si esta vacia, 0 si esta ocupada y logra mostrarla
+ */
 int estadiaDiaria_mostrarEstadia(EstadiaDiaria estadia)
 {
 	int retorno = -1;
@@ -64,7 +93,15 @@ int estadiaDiaria_mostrarEstadia(EstadiaDiaria estadia)
 	return retorno;
 }
 
-int estadiaDiaria_mostrarEstadias(EstadiaDiaria* estadias, int cantidadEstadias)
+/**
+ * @fn int estadiaDiaria_listarEstadias(EstadiaDiaria*, int)
+ * @brief Muestra el listado de estadias reservadas
+ *
+ * @param estadias listado de estadias
+ * @param cantidadEstadias longitud del listado
+ * @return Retorna -1 en caso de parametros invalidos, 0 si logro mostrar las estadias
+ */
+int estadiaDiaria_listarEstadias(EstadiaDiaria* estadias, int cantidadEstadias)
 {
 	int retorno = -1;
 	int i;
@@ -77,7 +114,8 @@ int estadiaDiaria_mostrarEstadias(EstadiaDiaria* estadias, int cantidadEstadias)
 			{
 				printf("%-20s %-20s %-25s %-15s %-25s\n", "ID RESERVA", "NOMBRE DUENIO", "TELEFONO DE CONTACTO", "ID PERRO", "FECHA DE RESERVA");
 			}
-			retorno = estadiaDiaria_mostrarEstadia(estadias[i]);
+			estadiaDiaria_mostrarEstadia(estadias[i]);
+			retorno = 0;
 
 		}
 	}
@@ -116,6 +154,14 @@ int estadiaDiaria_encontrarEstadiaPorID(EstadiaDiaria* estadias, int cantidadEst
 	return indiceEncontrado;
 }
 
+/**
+ * @fn int estadiaDiaria_mostrarIDS(EstadiaDiaria*, int)
+ * @brief Muestra los IDS de las estadias ocupadas en una linea
+ *
+ * @param estadias Listado de todas las estadias
+ * @param cantidadEstadias longitud de la lista
+ * @return Retorna -1 en caso de error (parametros invalidos). retorna 0 en caso de poder mostrar aunque sea un id
+ */
 int estadiaDiaria_mostrarIDS(EstadiaDiaria* estadias, int cantidadEstadias)
 {
 	int retorno = -1;
@@ -134,7 +180,15 @@ int estadiaDiaria_mostrarIDS(EstadiaDiaria* estadias, int cantidadEstadias)
 	return retorno;
 }
 
-int estadiaDiaria_cancelarEstadia(EstadiaDiaria* estadias, int cantidadEstadias)
+/**
+ * @fn int estadiaDiaria_bajaEstadia(EstadiaDiaria*, int)
+ * @brief Dar de baja logica una estadia buscada por ID.
+ *
+ * @param estadias listado de estadias
+ * @param cantidadEstadias longitud del listado
+ * @return Retorna -1 en caso de error (parametros invalidos). 0 en caso de darla de baja
+ */
+int estadiaDiaria_bajaEstadia(EstadiaDiaria* estadias, int cantidadEstadias)
 {
 	int retorno = -1;
 	int idEstadiaAux;
@@ -159,6 +213,128 @@ int estadiaDiaria_cancelarEstadia(EstadiaDiaria* estadias, int cantidadEstadias)
 		{
 			printf("Error, no se encontro la estadia\n");
 		}
+	}
+	return retorno;
+}
+
+/**
+ * @fn int estadiaDiaria_compararFechas(Fecha, Fecha)
+ * @brief Para comparar dos fechas ingresadas
+ *
+ * @param fecha1 Primera fecha ingresada
+ * @param fecha2 Segunda fecha ingresada
+ * @return Retorna 1 si fecha1 esta antes que fecha2. Retorna -1 si fecha2 esta antes. Si las fechas son iguales retorna 0.
+ */
+int estadiaDiaria_compararFechas(Fecha fecha1, Fecha fecha2)
+{
+	int retorno;
+
+	if(fecha1.anio < fecha2.anio)
+	{
+		retorno = 1;
+	}
+	else
+	{
+		if(fecha1.anio > fecha2.anio)
+		{
+			retorno = -1;
+		}
+		else
+		{
+			if(fecha1.anio == fecha2.anio)
+			{
+				if(fecha1.mes < fecha2.mes)
+				{
+					retorno = 1;
+				}
+				else
+				{
+					if(fecha1.mes > fecha2.mes)
+					{
+						retorno = -1;
+					}
+					else
+					{
+						if(fecha1.mes == fecha2.mes)
+						{
+							if(fecha1.dia < fecha2.dia)
+							{
+								retorno = 1;
+							}
+							else
+							{
+								if(fecha1.dia > fecha2.dia)
+								{
+									retorno = -1;
+								}
+								else
+								{
+									if(fecha1.dia == fecha2.dia)
+									{
+										retorno = 0;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return retorno;
+}
+
+/**
+ * @fn int estadiaDiaria_ordenarEstadiasPorFecha(EstadiaDiaria*, int)
+ * @brief Para ordenar un listado de estadias segun fecha (/y nombre del duenio del perro de la estadia)
+ *
+ * @param estadias listado de estadias
+ * @param cantidadEstadias longitud de la lista
+ * @return Retorna -1 en caso de parametro invalidos. 0 si logro su objetivo
+ */
+int estadiaDiaria_ordenarEstadiasPorFecha(EstadiaDiaria* estadias, int cantidadEstadias)
+{
+	int retorno = -1;
+	int i;
+	int flagSwap;
+	EstadiaDiaria estadiaAux;
+	int nuevoLimite;
+
+	if(estadias != NULL && cantidadEstadias > 0)
+	{
+		nuevoLimite = cantidadEstadias -1;
+		do{
+			flagSwap = 0;
+			for(i=0; i<nuevoLimite; i++)
+			{
+				if(estadiaDiaria_compararFechas(estadias[i].fecha, estadias[i+1].fecha) == 1)
+				{
+					estadiaAux = estadias[i];
+					estadias[i] = estadias[i+1];
+					estadias[i+1] = estadiaAux;
+					flagSwap = 1;
+				}
+			}
+			nuevoLimite --;
+		}while(flagSwap);
+
+		nuevoLimite = cantidadEstadias -1;
+		do{
+			flagSwap = 0;
+			for(i=0; i<nuevoLimite; i++)
+			{
+				if(estadiaDiaria_compararFechas(estadias[i].fecha, estadias[i+1].fecha) == 0 && strcmp(estadias[i].nombreDuenio, estadias[i+1].nombreDuenio) == 1)
+				{
+					estadiaAux = estadias[i];
+					estadias[i] = estadias[i+1];
+					estadias[i+1] = estadiaAux;
+					flagSwap = 1;
+				}
+			}
+			nuevoLimite --;
+		}while(flagSwap);
+
+		retorno = 0;
 	}
 	return retorno;
 }
