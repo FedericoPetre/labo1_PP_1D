@@ -201,3 +201,46 @@ int perro_mostrarPerroPorID(perro* perritos, int cantidadPerritos, int id)
 	return retorno;
 }
 
+/**
+ * @fn int perro_mostrarPromedioDeEdad(perro*, int)
+ * @brief Para calcular y mostrar el promedio de edad de los perros del listado
+ *
+ * @param perritos Listado de perros
+ * @param cantidadPerritos longitud del listado
+ * @return Retorna -1 en caso de recibir parametros invalidos, o en caso de poder calcular el promedio
+ */
+int perro_mostrarPromedioDeEdad(perro* perritos, int cantidadPerritos)
+{
+	int retorno = -1;
+	int i;
+	int contadorPerritos =0;
+	int acumuladorEdad = 0;
+	float promedioEdad;
+
+	if(perritos != NULL && cantidadPerritos > 0)
+	{
+		for(i=0; i<cantidadPerritos; i++)
+		{
+			if(perritos[i].banderaPerro == OCUPADO)
+			{
+				acumuladorEdad = acumuladorEdad + perritos[i].edad;
+				contadorPerritos++;
+			}
+		}
+
+		if(contadorPerritos == 0)
+		{
+			promedioEdad = 0;
+			retorno = 0;
+		}
+		else
+		{
+			promedioEdad = (float) acumuladorEdad / contadorPerritos;
+			retorno = 0;
+		}
+
+		printf("\nPromedio de edad de los perros : %.2f anios\n", promedioEdad);
+	}
+	return retorno;
+}
+

@@ -22,7 +22,7 @@ int main(void) {
 	int opcion = -1;
 	int contadorEstadias = 0;
 	int idEstadia = 100000;
-	int confirmacionReserva;
+	int confirmacionReservaAltaCancelacion;
 
 	EstadiaDiaria estadias[30];
 
@@ -38,10 +38,10 @@ int main(void) {
 		 {
 			 case 1:
 				 printf("Ha elejido la opcion 1- RESERVAR ESTADIA\n");
-				 confirmacionReserva = nexusPerroYEstadias_AltaEstadia(estadias, CANTESTADIAS, idEstadia , perros, CANTPERROS);
+				 confirmacionReservaAltaCancelacion = nexusPerroYEstadias_AltaEstadia(estadias, CANTESTADIAS, idEstadia , perros, CANTPERROS);
 				 contadorEstadias++;
 				 idEstadia++;
-				 if(confirmacionReserva == -1)
+				 if(confirmacionReservaAltaCancelacion == -1)
 				 {
 					 contadorEstadias--;
 					 idEstadia--;
@@ -67,8 +67,11 @@ int main(void) {
 				 }
 				 else
 				 {
-					 estadiaDiaria_bajaEstadia(estadias, CANTESTADIAS);
-					 contadorEstadias--;
+					 confirmacionReservaAltaCancelacion = estadiaDiaria_bajaEstadia(estadias, CANTESTADIAS);
+					 if(confirmacionReservaAltaCancelacion == 0)
+					 {
+						 contadorEstadias--;
+					 }
 				 }
 
 				 break;
@@ -93,7 +96,7 @@ int main(void) {
 				 }
 				 else
 				 {
-					 nexusPerroYEstadias_listarPerros(estadias,CANTESTADIAS, perros, CANTPERROS);
+					 perro_listarPerros(perros, CANTPERROS);
 				 }
 
 				 break;
@@ -102,6 +105,10 @@ int main(void) {
 				 if(contadorEstadias == 0)
 				 {
 					 printf("Error, primero hay que reservar una estadia\n");
+				 }
+				 else
+				 {
+					 perro_mostrarPromedioDeEdad(perros, CANTPERROS);
 				 }
 
 				 break;

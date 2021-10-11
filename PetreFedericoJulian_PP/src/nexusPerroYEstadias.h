@@ -14,7 +14,6 @@
 EstadiaDiaria nexusPerroYEstadias_reservarEstadia(int id, char* nombreDuenio, int telefono, int idPerro, Fecha fecha);
 int nexusPerroYEstadias_AltaEstadia(EstadiaDiaria* estadias, int cantidadEstadias, int idEstadia, perro* perritos, int cantidadPerritos);
 int nexusPerroYEstadias_modificarEstadia(EstadiaDiaria* estadias, int cantidadEstadias, perro* perritos, int cantidadPerritos);
-int nexusPerroYEstadias_listarPerros(EstadiaDiaria* estadias, int cantidadEstadias, perro* perritos, int cantidadPerritos);
 
 
 

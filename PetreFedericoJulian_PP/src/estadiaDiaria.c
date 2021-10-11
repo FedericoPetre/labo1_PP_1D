@@ -193,6 +193,7 @@ int estadiaDiaria_bajaEstadia(EstadiaDiaria* estadias, int cantidadEstadias)
 	int retorno = -1;
 	int idEstadiaAux;
 	int indiceEstadiaAux;
+	char respuesta;
 
 	if(estadias != NULL && cantidadEstadias > 0)
 	{
@@ -204,10 +205,18 @@ int estadiaDiaria_bajaEstadia(EstadiaDiaria* estadias, int cantidadEstadias)
 
 		if(indiceEstadiaAux != -1)
 		{
-			estadias[indiceEstadiaAux].estadoReserva = VACIO;
-			retorno = 0;
-			printf("La estadia ha sido cancelada con exito\n");
-
+			funcionesInputs_pedirYValidarCaracter("Esta seguro de que desea cancelar esa estadia? (s/n)\n", "Error, esta seguro de que desea cancelar esa estadia? (s : si/n : no)\n", &respuesta);
+			if(respuesta == 's')
+			{
+				estadias[indiceEstadiaAux].estadoReserva = VACIO;
+				retorno = 0;
+				printf("La estadia ha sido cancelada con exito\n");
+			}
+			else
+			{
+				printf("La estadia aun sigue en pie\n");
+				retorno = -1;
+			}
 		}
 		else
 		{
