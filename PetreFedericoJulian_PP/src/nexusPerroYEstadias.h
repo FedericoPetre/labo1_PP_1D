@@ -2,7 +2,7 @@
  * nexusPerroYEstadias.h
  *
  *  Created on: 9 oct. 2021
- *      Author: Owner
+ *      Author: Federico Petre
  */
 
 #ifndef NEXUSPERROYESTADIAS_H_

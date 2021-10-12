@@ -2,7 +2,7 @@
  * estadiaDiaria.c
  *
  *  Created on: 8 oct. 2021
- *      Author: Owner
+ *      Author: Federico Petre
  */
 
 #include "estadiaDiaria.h"

@@ -26,7 +26,10 @@ int main(void) {
 
 	EstadiaDiaria estadias[30];
 
-	perro perros[3] ={{7000, "Lobo", "Sharpei", 2, OCUPADO},{7001, "Sheila", "Golden", 12, OCUPADO},{7002, "Reina", "Galgo", 13, OCUPADO}};
+	perro perros[CANTPERROS];
+
+	perro_inicializarPerros(perros, CANTPERROS);
+	perro_hardCodearPerros(perros, CANTPERROS);
 
 	printf("Bienvenido a la guardería de perros\n");
 

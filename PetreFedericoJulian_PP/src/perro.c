@@ -6,6 +6,60 @@
  */
 
 #include "perro.h"
+
+/**
+ * @fn void perro_hardCodearPerros(perro[], int)
+ * @brief Hardcodea la lista de perritos
+ *
+ * @param perritos lista de perritos
+ * @param cantidadPerros Se hardcodean 2 perritos menos que la cantidad ingresada
+ */
+void perro_hardCodearPerros(perro* perritos, int cantidadPerros)
+{
+	int i;
+	int idsPerros[] = {7000,7001,7002};
+	char nombresPerro[][21] = {"Lobo", "Sheila", "Reina"};
+	char razaPerros[][21] = {"Sharpei", "Golden", "Galgo"};
+	int edadPerros[]= {2,12,13};
+
+	if(perritos != NULL && cantidadPerros > 0)
+	{
+		for(i=0; i<cantidadPerros-2; i++)
+		{
+			perritos[i].id = idsPerros[i];
+			strcpy(perritos[i].nombre, nombresPerro[i]);
+			strcpy(perritos[i].raza, razaPerros[i]);
+			perritos[i].edad = edadPerros[i];
+			perritos[i].banderaPerro = OCUPADO;
+		}
+	}
+
+}
+
+/**
+ * @fn int perro_inicializarPerros(perro*, int)
+ * @brief Para inicializar la bandera de perros en Vacio
+ *
+ * @param perritos listado de perritos a ser inicializada
+ * @param cantidadPerros cantidad de perros que se inicializa su bandera en VACIO
+ * @return Retorna -1 en caso de error [Parametros invalidos]. Retorna 0 en caso contrario
+ */
+int perro_inicializarPerros(perro* perritos, int cantidadPerros)
+{
+	int retorno = -1;
+	int i;
+
+	if(perritos != NULL && cantidadPerros >0)
+	{
+		for(i=0; i<cantidadPerros; i++)
+		{
+			perritos[i].banderaPerro = VACIO;
+			retorno = 0;
+		}
+	}
+	return retorno;
+}
+
 /**
  * @fn perro perro_cargarPerro(int, char*, char*, int)
  * @brief Para cargar un perrito
@@ -239,7 +293,7 @@ int perro_mostrarPromedioDeEdad(perro* perritos, int cantidadPerritos)
 			retorno = 0;
 		}
 
-		printf("\nPromedio de edad de los perros : %.2f anios\n", promedioEdad);
+		printf("\nPROMEDIO DE EDAD\n%.2f anios\n", promedioEdad);
 	}
 	return retorno;
 }

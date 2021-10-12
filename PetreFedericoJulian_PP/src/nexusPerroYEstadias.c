@@ -2,7 +2,7 @@
  * nexusPerroYEstadias.c
  *
  *  Created on: 9 oct. 2021
- *      Author: Owner
+ *      Author: Federico Petre
  */
 
 #include "nexusPerroYEstadias.h"
@@ -115,8 +115,10 @@ int nexusPerroYEstadias_modificarEstadia(EstadiaDiaria* estadias, int cantidadEs
 	int opcion;
 	int telefonoAux;
 	int idPerroAux;
+	int idPerroAnteriorAux;
 	int indicePerroAux;
 	char respuesta;
+	int telefonoAnteriorAux;
 
 	if(estadias != NULL && cantidadEstadias > 0 && perritos != NULL && cantidadPerritos > 0)
 	{
@@ -128,6 +130,8 @@ int nexusPerroYEstadias_modificarEstadia(EstadiaDiaria* estadias, int cantidadEs
 
 		if(indiceEstadiaAux != -1)
 		{
+			printf("Mostrando estadia a modificar:\n%-20s %-20s %-25s %-15s %-25s\n", "ID RESERVA", "NOMBRE DUENIO", "TELEFONO DE CONTACTO", "ID PERRO", "FECHA DE RESERVA");
+			estadiaDiaria_mostrarEstadia(estadias[indiceEstadiaAux]);
 			funcionesInputs_pedirYValidarEntero("Ingrese opcion:\n1- Modificar telefono de contacto\n2- Modificar perro\n", "Error, reingrese opcion: (1 o 2)\n1- Modificar telefono de contacto\n2- Modificar perro\n", 1, 2, &opcion);
 
 			switch(opcion)
@@ -135,15 +139,20 @@ int nexusPerroYEstadias_modificarEstadia(EstadiaDiaria* estadias, int cantidadEs
 				case 1:
 					printf("Has elejido la opcion 1- Modificar telefono de contacto\n");
 					funcionesInputs_pedirYValidarEntero("Ingrese nuevo telefono de contacto (celular)(1500000000 - 1600000000)\n ", "Error, reingrese nuevo telefono de contacto (celular)(1500000000 - 1600000000)\n ", 1500000000, 1600000000, &telefonoAux);
-					funcionesInputs_pedirYValidarCaracter("Esta seguro que desea modificar el telefono de contacto?(s/n)\n", "Error, esta seguro que desea modificar el telefono de contacto?(s/n)\n", &respuesta);
+					telefonoAnteriorAux = estadias[indiceEstadiaAux].telefonoContacto;
+					estadias[indiceEstadiaAux].telefonoContacto = telefonoAux;
+					printf("Mostrando estadia modificada:\n%-20s %-20s %-25s %-15s %-25s\n", "ID RESERVA", "NOMBRE DUENIO", "TELEFONO DE CONTACTO", "ID PERRO", "FECHA DE RESERVA");
+					estadiaDiaria_mostrarEstadia(estadias[indiceEstadiaAux]);
+					funcionesInputs_pedirYValidarCaracter("Esta seguro que desea guardar este nuevo telefono de contacto?(s/n)\n", "Error, esta seguro que desea guardar este nuevo telefono de contacto?(s/n)\n", &respuesta);
+
 					if(respuesta == 's')
 					{
-						estadias[indiceEstadiaAux].telefonoContacto = telefonoAux;
 						printf("Telefono de contacto modificado exitosamente\n");
 					}
 					else
 					{
-						printf("se ha cancelado la modifcacion de datos\n");
+						estadias[indiceEstadiaAux].telefonoContacto = telefonoAnteriorAux;
+						printf("se ha cancelado la modificacion de datos\n");
 					}
 					break;
 				case 2:
@@ -157,16 +166,20 @@ int nexusPerroYEstadias_modificarEstadia(EstadiaDiaria* estadias, int cantidadEs
 						funcionesInputs_pedirYValidarEnteroSinRango("\nError ingrese el ID del perro a cuidar\n", "Error, reingrese el ID del perro a cuidar (numérico)\n", &idPerroAux);
 						indicePerroAux = perro_encontrarPerroPorID(perritos, cantidadPerritos, idPerroAux);
 					}
+					idPerroAnteriorAux = estadias[indiceEstadiaAux].idPerro;
+					estadias[indiceEstadiaAux].idPerro = idPerroAux;
+					printf("Mostrando estadia modificada:\n%-20s %-20s %-25s %-15s %-25s\n", "ID RESERVA", "NOMBRE DUENIO", "TELEFONO DE CONTACTO", "ID PERRO", "FECHA DE RESERVA");
+					estadiaDiaria_mostrarEstadia(estadias[indiceEstadiaAux]);
 
 					funcionesInputs_pedirYValidarCaracter("Esta seguro que desea modificar el perro?(s/n)\n", "Error, esta seguro que desea modificar el perro?(s/n)\n", &respuesta);
 					if(respuesta == 's')
 					{
-						estadias[indiceEstadiaAux].idPerro = idPerroAux;
 						printf("Perro modificado exitosamente\n");
 					}
 					else
 					{
-						printf("se ha cancelado la modifcacion del perro\n");
+						estadias[indiceEstadiaAux].idPerro = idPerroAnteriorAux;
+						printf("se ha cancelado la modificacion del perro\n");
 					}
 					break;
 			}
