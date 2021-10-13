@@ -62,7 +62,7 @@ int nexusPerroYEstadias_AltaEstadia(EstadiaDiaria* estadias, int cantidadEstadia
 
 		if(estadiaDisponible != -1)
 		{
-			funcionesInputs_pedirYValidarCadena("Ingrese nombre del duenio (max 30 caracteres sin espacios)\n", "Error, reingrese nombre del duenio (max 30 caracteres sin espacios)\n", 30, nombreAux);
+			funcionesInputs_pedirYValidarCadena("Ingrese nombre del duenio (max 30 caracteres -letras- sin espacios)\n", "Error, reingrese nombre del duenio (max 30 caracteres -letras- sin espacios)\n", 30, nombreAux);
 			funcionesInputs_pedirYValidarEntero("Ingrese telefono de contacto (celular)(min: 1500000000 - max: 1600000000)\n ", "Error, reingrese telefono de contacto (celular)(min: 1500000000 - max: 1600000000)\n ", 1500000000, 1600000000, &telefonoAux);
 			perro_mostrarIdPerros(perritos, cantidadPerritos);
 			funcionesInputs_pedirYValidarEnteroSinRango("\nIngrese el ID del perro a cuidar\n", "Error, reingrese el ID del perro a cuidar (numérico)\n", &idPerroAux);

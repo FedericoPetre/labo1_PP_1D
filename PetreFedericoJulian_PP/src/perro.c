@@ -61,7 +61,7 @@ int perro_inicializarPerros(perro* perritos, int cantidadPerros)
 }
 
 /**
- * @fn perro perro_cargarPerro(int, char*, char*, int)
+ * @fn perro perro_AltaPerro(int, char*, char*, int)
  * @brief Para cargar un perrito
  *
  * @param id Id del perrito a cargar
@@ -70,7 +70,7 @@ int perro_inicializarPerros(perro* perritos, int cantidadPerros)
  * @param edad Edad del perrito
  * @return Retorna el perrito cargado con los parámetros anteriores
  */
-perro perro_cargarPerro(int id, char* nombre, char* raza, int edad)
+perro perro_AltaPerro(int id, char* nombre, char* raza, int edad)
 {
 	perro perroAux;
 
@@ -94,7 +94,7 @@ perro perro_cargarPerro(int id, char* nombre, char* raza, int edad)
  * @param cantidadPerritos cantidad de perritos de la lista (incluye todos, cargados y no cargados)
  * @return Retorna -1 si la lista esta vacia o la cantidad de perritos es no valida. En caso de poder mostrarlos retorna 0
  */
-int perro_listarPerros(perro* perritos, int cantidadPerritos)
+int perro_ListarPerros(perro* perritos, int cantidadPerritos)
 {
 	int retorno = -1;
 	int i;
@@ -174,7 +174,7 @@ int perro_mostrarIdPerros(perro* perritos, int cantidadPerritos)
 }
 
 /**
- * @fn int perro_modificarPerro(perro*, int, int)
+ * @fn int perro_ModificarPerro(perro*, int, int)
  * @brief Para modificar los datos de un perrito ya cargado
  *
  * @param perritos Listado de perritos, se busca el perrito a ser modificado por ID.
@@ -182,7 +182,7 @@ int perro_mostrarIdPerros(perro* perritos, int cantidadPerritos)
  * @param idPerro ID del perrito a ser modificado (si es que se encuentra en la lista).
  * @return Retorna -1 en caso de que los parametros ingresados son invalidos o que el perrito no se encontro para modificar o que el usuario decidio no modificar los datos del perro. Retorna 0 en caso contrario.
  */
-int perro_modificarPerro(perro* perritos, int cantidadPerritos, int idPerro)
+int perro_ModificarPerro(perro* perritos, int cantidadPerritos, int idPerro)
 {
 	int retorno = -1;
 	int indicePerro;
@@ -207,7 +207,7 @@ int perro_modificarPerro(perro* perritos, int cantidadPerritos, int idPerro)
 
 			if(respuesta == 's')
 			{
-				perritos[indicePerro] = perro_cargarPerro(idPerro, nombrePerroAux, razaPerroAux, edadPerroAux);
+				perritos[indicePerro] = perro_AltaPerro(idPerro, nombrePerroAux, razaPerroAux, edadPerroAux);
 				printf("Datos del perro modificados con exito\n");
 				retorno = 0;
 			}
@@ -294,6 +294,27 @@ int perro_mostrarPromedioDeEdad(perro* perritos, int cantidadPerritos)
 		}
 
 		printf("\nPROMEDIO DE EDAD\n%.2f anios\n", promedioEdad);
+	}
+	return retorno;
+}
+
+int perro_BajaPerro(perro* perritos, int cantidadPerritos)
+{
+	int retorno = -1;
+	int indexPerro;
+	int idAux;
+
+	if(perritos != NULL && cantidadPerritos > 0)
+	{
+		funcionesInputs_pedirYValidarEnteroSinRango("Ingrese el ID del perro a dar de baja\n", "Error, reingrese el ID del perro a dar de baja (ID numérico)\n", &idAux);
+
+		indexPerro = perro_encontrarPerroPorID(perritos, cantidadPerritos, idAux);
+
+		if(indexPerro != -1)
+		{
+			perritos[indexPerro].banderaPerro = VACIO;
+			retorno = 0;
+		}
 	}
 	return retorno;
 }

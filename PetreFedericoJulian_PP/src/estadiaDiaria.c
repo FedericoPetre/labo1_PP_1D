@@ -68,9 +68,9 @@ Fecha estadiaDiaria_registrarFecha(void)
 {
 	Fecha fechaIngresada;
 	printf("Ingrese fecha a reservar estadia...\n");
-	funcionesInputs_pedirYValidarEntero("Ingrese dia (1-31)", "Error, ingrese dia (1-31)", 1, 31, &fechaIngresada.dia);
-	funcionesInputs_pedirYValidarEntero("Ingrese mes (1-12)", "Error, ingrese mes (1-12)", 1, 12, &fechaIngresada.mes);
-	funcionesInputs_pedirYValidarEntero("Ingrese anio (2021-2030)", "Error, anio (2021-2030)", 2021, 2030, &fechaIngresada.anio);
+	funcionesInputs_pedirYValidarEntero("Ingrese dia (1-31) :", "Error, ingrese dia (1-31) :", 1, 31, &fechaIngresada.dia);
+	funcionesInputs_pedirYValidarEntero("Ingrese mes (1-12) :", "Error, ingrese mes (1-12) :", 1, 12, &fechaIngresada.mes);
+	funcionesInputs_pedirYValidarEntero("Ingrese anio (2021-2030) :", "Error, ingrese anio (2021-2030) :", 2021, 2030, &fechaIngresada.anio);
 
 	return fechaIngresada;
 }
@@ -205,6 +205,8 @@ int estadiaDiaria_bajaEstadia(EstadiaDiaria* estadias, int cantidadEstadias)
 
 		if(indiceEstadiaAux != -1)
 		{
+			printf("Mostrando estadia a dar de baja\n%-20s %-20s %-25s %-15s %-25s\n", "ID RESERVA", "NOMBRE DUENIO", "TELEFONO DE CONTACTO", "ID PERRO", "FECHA DE RESERVA");
+			estadiaDiaria_mostrarEstadia(estadias[indiceEstadiaAux]);
 			funcionesInputs_pedirYValidarCaracter("Esta seguro de que desea cancelar esa estadia? (s/n)\n", "Error, esta seguro de que desea cancelar esa estadia? (s : si/n : no)\n", &respuesta);
 			if(respuesta == 's')
 			{
