@@ -12,7 +12,7 @@
  * @brief Hardcodea la lista de perritos
  *
  * @param perritos lista de perritos
- * @param cantidadPerros Se hardcodean 2 perritos menos que la cantidad ingresada
+ * @param cantidadPerros Se hardcodean 3 perritos
  */
 void perro_hardCodearPerros(perro* perritos, int cantidadPerros)
 {
@@ -24,7 +24,7 @@ void perro_hardCodearPerros(perro* perritos, int cantidadPerros)
 
 	if(perritos != NULL && cantidadPerros > 0)
 	{
-		for(i=0; i<cantidadPerros-2; i++)
+		for(i=0; i<3; i++)
 		{
 			perritos[i].id = idsPerros[i];
 			strcpy(perritos[i].nombre, nombresPerro[i]);

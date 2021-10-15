@@ -65,12 +65,12 @@ int nexusPerroYEstadias_AltaEstadia(EstadiaDiaria* estadias, int cantidadEstadia
 		if(estadiaDisponible != -1)
 		{
 			Duenio_mostrarIdDuenios(duenios, cantidadDuenios);
-			funcionesInputs_pedirYValidarEnteroSinRango("\nIngrese el ID del Duenio\n", "Error, reingrese el ID del Duenio (numérico)\n", &idDuenioAux);
+			funcionesInputs_pedirYValidarEnteroSinRango("\nIngrese el ID del Duenio (30000: Federico, 30001: Luciano, 30002: Ignacio , 30003: Julian , 30004: Agustin)\n", "Error, reingrese el ID del Duenio (numérico) (30000: Federico, 30001: Luciano, 30002: Ignacio , 30003: Julian , 30004: Agustin)\n", &idDuenioAux);
 			indiceDuenio = Duenio_encontrarDuenioPorID(duenios, cantidadDuenios, idDuenioAux);
 			while(indiceDuenio == -1)
 			{
 				Duenio_mostrarIdDuenios(duenios, cantidadDuenios);
-				funcionesInputs_pedirYValidarEnteroSinRango("\nError ingrese el ID del Duenio\n", "Error, reingrese el ID del Duenio (numérico)\n", &idDuenioAux);
+				funcionesInputs_pedirYValidarEnteroSinRango("\nError, reingrese el ID del Duenio (30000: Federico, 30001: Luciano, 30002: Ignacio , 30003: Julian , 30004: Agustin)\n", "Error, reingrese el ID del Duenio (numérico) (30000: Federico, 30001: Luciano, 30002: Ignacio , 30003: Julian , 30004: Agustin)\n", &idDuenioAux);
 				indiceDuenio = Duenio_encontrarDuenioPorID(duenios, cantidadDuenios, idDuenioAux);
 			}
 
@@ -79,12 +79,12 @@ int nexusPerroYEstadias_AltaEstadia(EstadiaDiaria* estadias, int cantidadEstadia
 
 
 			perro_mostrarIdPerros(perritos, cantidadPerritos);
-			funcionesInputs_pedirYValidarEnteroSinRango("\nIngrese el ID del perro a cuidar\n", "Error, reingrese el ID del perro a cuidar (numérico)\n", &idPerroAux);
+			funcionesInputs_pedirYValidarEnteroSinRango("\nIngrese el ID del perro a cuidar (7000: Lobo , 7001: Sheila , 7002: Reina)\n", "Error, reingrese el ID del perro a cuidar (numérico) (7000: Lobo , 7001: Sheila , 7002: Reina)\n", &idPerroAux);
 			indicePerro = perro_encontrarPerroPorID(perritos, cantidadPerritos, idPerroAux);
 			while(indicePerro == -1)
 			{
 				perro_mostrarIdPerros(perritos, cantidadPerritos);
-				funcionesInputs_pedirYValidarEnteroSinRango("\nError ingrese el ID del perro a cuidar\n", "Error, reingrese el ID del perro a cuidar (numérico)\n", &idPerroAux);
+				funcionesInputs_pedirYValidarEnteroSinRango("\nError, reingrese el ID del perro a cuidar (7000: Lobo , 7001: Sheila , 7002: Reina)\n", "Error, reingrese el ID del perro a cuidar (numérico) (7000: Lobo , 7001: Sheila , 7002: Reina)\n", &idPerroAux);
 				indicePerro = perro_encontrarPerroPorID(perritos, cantidadPerritos, idPerroAux);
 			}
 			fechaAux = estadiaDiaria_registrarFecha();
@@ -92,7 +92,7 @@ int nexusPerroYEstadias_AltaEstadia(EstadiaDiaria* estadias, int cantidadEstadia
 			estadias[estadiaDisponible] = nexusPerroYEstadias_reservarEstadia(idEstadia, nombreAux, telefonoAux, idPerroAux, fechaAux);
 			printf("%-20s %-20s %-25s %-15s %-25s\n", "ID RESERVA", "NOMBRE DUENIO", "TELEFONO DE CONTACTO", "ID PERRO", "FECHA DE RESERVA");
 			estadiaDiaria_mostrarEstadia(estadias[estadiaDisponible]);
-			funcionesInputs_pedirYValidarCaracter("Esta estadia se ingresara en el sistema\nEsta de acuerdo? (s/n)\n", "Error, esta estadia se ingresara en el sistema\nEsta de acuerdo? (s:si/n:no)(Ingrese caracter\n)", &respuesta);
+			funcionesInputs_pedirYValidarCaracter("Esta estadia se ingresara en el sistema\nEsta de acuerdo? (s/n)\n", "Error, esta estadia se ingresara en el sistema\nEsta de acuerdo? (s:si/n:no)(Ingrese caracter)\n", &respuesta);
 
 			if(respuesta == 's')
 			{
@@ -172,7 +172,7 @@ int nexusPerroYEstadias_modificarEstadia(EstadiaDiaria* estadias, int cantidadEs
 				case 2:
 					printf("Has elejido la opcion 2- Modificar perro\n");
 					perro_mostrarIdPerros(perritos, cantidadPerritos);
-					funcionesInputs_pedirYValidarEnteroSinRango("\nIngrese el ID del nuevo perro a cuidar\n", "Error, reingrese el ID del nuevo perro a cuidar (numérico)\n", &idPerroAux);
+					funcionesInputs_pedirYValidarEnteroSinRango("\nIngrese el ID del nuevo perro a cuidar (7000: Lobo , 7001: Sheila , 7002: Reina)\n", "Error, reingrese el ID del nuevo perro a cuidar (numérico)(7000: Lobo , 7001: Sheila , 7002: Reina)\n", &idPerroAux);
 					indicePerroAux = perro_encontrarPerroPorID(perritos, cantidadPerritos, idPerroAux);
 					while(indicePerroAux == -1)
 					{
@@ -319,6 +319,7 @@ int nexusPerroYEstadias_listarEstadiasPerros(EstadiaDiaria* estadias, int cantid
 
 	if(estadias != NULL && cantidadEstadias>0 && perritos != NULL && cantidadPerritos > 0)
 	{
+		estadiaDiaria_ordenarEstadiasPorFecha(estadias, cantidadEstadias);
 
 		printf("Mostrando listado de perros con sus estadias diarias reservadas\n");
 		for(i=0; i<cantidadPerritos; i++)
