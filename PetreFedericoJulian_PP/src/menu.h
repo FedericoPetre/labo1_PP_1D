@@ -15,6 +15,7 @@
 #include <ctype.h>
 #include "funcionesInputs.h"
 #include "nexusPerroYEstadias.h"
+#include "Duenio.h"
 
 void mostrarMenu(void);
 

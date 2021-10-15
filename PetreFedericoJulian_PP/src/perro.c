@@ -319,3 +319,13 @@ int perro_BajaPerro(perro* perritos, int cantidadPerritos)
 	return retorno;
 }
 
+int perro_mostrarPerro(perro perrito)
+{
+	int retorno = -1;
+	printf("%-22s %-22s %-22s %-22s\n","ID PERRO", "NOMBRE PERRITO", "RAZA PERRITO", "EDAD PERRITO");
+	printf("%-22d %-22s %-22s %-22d\n", perrito.id, perrito.nombre, perrito.raza, perrito.edad);
+	retorno = 0;
+
+	return retorno;
+}
+

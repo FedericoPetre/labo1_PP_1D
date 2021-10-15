@@ -34,5 +34,6 @@ int perro_ModificarPerro(perro* perritos, int cantidadPerritos, int idPerro);
 int perro_mostrarPerroPorID(perro* perritos, int cantidadPerritos, int id);
 int perro_mostrarPromedioDeEdad(perro* perritos, int cantidadPerritos);
 int perro_BajaPerro(perro* perritos, int cantidadPerritos);
+int perro_mostrarPerro(perro perrito);
 
 #endif /* PERRO_H_ */

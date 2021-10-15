@@ -87,7 +87,7 @@ int estadiaDiaria_mostrarEstadia(EstadiaDiaria estadia)
 	int retorno = -1;
 	if(estadia.estadoReserva == OCUPADO)
 	{
-		printf("%-20d %-20s %-25d %-15d %-2d/%-2d/%-5d\n", estadia.id, estadia.nombreDuenio, estadia.telefonoContacto, estadia.idPerro, estadia.fecha.dia, estadia.fecha.mes, estadia.fecha.anio);
+		printf("%-20d %-20s %-25d %-15d %-2d/%-2d/%-5d\n", estadia.id, estadia.Duenio.nombreDuenio, estadia.Duenio.telefono, estadia.idPerro, estadia.fecha.dia, estadia.fecha.mes, estadia.fecha.anio);
 		retorno = 0;
 	}
 	return retorno;
@@ -334,7 +334,7 @@ int estadiaDiaria_ordenarEstadiasPorFecha(EstadiaDiaria* estadias, int cantidadE
 			flagSwap = 0;
 			for(i=0; i<nuevoLimite; i++)
 			{
-				if(estadiaDiaria_compararFechas(estadias[i].fecha, estadias[i+1].fecha) == 0 && strcmp(estadias[i].nombreDuenio, estadias[i+1].nombreDuenio) == 1)
+				if(estadiaDiaria_compararFechas(estadias[i].fecha, estadias[i+1].fecha) == 0 && strcmp(estadias[i].Duenio.nombreDuenio, estadias[i+1].Duenio.nombreDuenio) == 1)
 				{
 					estadiaAux = estadias[i];
 					estadias[i] = estadias[i+1];
@@ -348,6 +348,24 @@ int estadiaDiaria_ordenarEstadiasPorFecha(EstadiaDiaria* estadias, int cantidadE
 		retorno = 0;
 	}
 	return retorno;
+}
+
+int estadiaDiaria_encontrarPerroPorIDEnEstadia(EstadiaDiaria* estadias, int cantidadEstadias, int idPerro)
+{
+	int indicePerro = -1;
+	int i;
+
+	if(estadias != NULL && cantidadEstadias > 0)
+	{
+		for(i=0; i<cantidadEstadias; i++)
+		{
+			if(estadias[i].estadoReserva == OCUPADO && estadias[i].idPerro == idPerro)
+			{
+				indicePerro = i;
+			}
+		}
+	}
+	return indicePerro;
 }
 
 

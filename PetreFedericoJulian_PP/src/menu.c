@@ -19,21 +19,25 @@ void mostrarMenu(void)
 
 	perro perros[CANTPERROS];
 
+	Duenio duenios[5];
+
 	perro_inicializarPerros(perros, CANTPERROS);
 	perro_hardCodearPerros(perros, CANTPERROS);
 	estadiaDiaria_inicializarEstadias(estadias, CANTESTADIAS);
 
+	Duenio_hardcodearDuenios(duenios, 5);
+
 	printf("Bienvenido a la guardería de perros\n");
 
-	while(opcion != 7)
+	while(opcion != 9)
 	{
-		 funcionesInputs_pedirYValidarEntero("Elija una opcion (1-7):\n1- RESERVAR ESTADIA\n2- MODIFICAR ESTADIA\n3- CANCELAR ESTADIA\n4- LISTAR ESTADIAS\n5- LISTAR PERROS\n6- Promedio de edad de los perros\n7- SALIR\n", "Error, elija una opcion (1-7):\n1- RESERVAR ESTADIA\n2- MODIFICAR ESTADIA\n3- CANCELAR ESTADIA\n4- LISTAR ESTADIAS\n5- LISTAR PERROS\n6- Promedio de edad de los perros\n7- SALIR\n", 1, 7, &opcion);
+		 funcionesInputs_pedirYValidarEntero("Elija una opcion (1-9):\n1- RESERVAR ESTADIA\n2- MODIFICAR ESTADIA\n3- CANCELAR ESTADIA\n4- LISTAR ESTADIAS\n5- LISTAR PERROS\n6- Promedio de edad de los perros\n7- Perro con mas estadias reservadas\n8- Listado de perros con sus estadias diarias reservadas\n9- SALIR\n", "Error, elija una opcion (1-9):\n1- RESERVAR ESTADIA\n2- MODIFICAR ESTADIA\n3- CANCELAR ESTADIA\n4- LISTAR ESTADIAS\n5- LISTAR PERROS\n6- Promedio de edad de los perros\n7- Perro con mas estadias reservadas\n8- Listado de perros con sus estadias diarias reservadas\n9- SALIR\n", 1, 9, &opcion);
 
 		 switch(opcion)
 		 {
 			 case 1:
 				 printf("Ha elejido la opcion 1- RESERVAR ESTADIA\n");
-				 confirmacionReservaAltaCancelacion = nexusPerroYEstadias_AltaEstadia(estadias, CANTESTADIAS, idEstadia , perros, CANTPERROS);
+				 confirmacionReservaAltaCancelacion = nexusPerroYEstadias_AltaEstadia(estadias, CANTESTADIAS, idEstadia , perros, CANTPERROS, duenios, 5);
 				 contadorEstadias++;
 				 idEstadia++;
 				 if(confirmacionReservaAltaCancelacion == -1)
@@ -108,11 +112,33 @@ void mostrarMenu(void)
 
 				 break;
 			 case 7:
-				 printf("Ha elejido la opcion 7- SALIR\nSaliendo del sistema....\nHas salido del sistema\n");
+				 printf("Ha elejido la opcion 7- Perro con mas estadias reservadas\n");
+				 if(contadorEstadias == 0)
+				 {
+					 printf("Error, primero hay que reservar una estadia\n");
+				 }
+				 else
+				 {
+					 nexusPerroYEstadias_encontrarYMostrarPerroConMasEstadias(estadias, CANTESTADIAS, perros, CANTPERROS);
+				 }
+				 break;
+			 case 8:
+				 printf("Ha elejido la opcion 8- Listado de perros con sus estadias diarias reservadas\n");
+				 if(contadorEstadias == 0)
+				 {
+					 printf("Error, primero hay que reservar una estadia\n");
+				 }
+				 else
+				 {
+					 nexusPerroYEstadias_listarEstadiasPerros(estadias, CANTESTADIAS, perros, CANTPERROS);
+				 }
+				 break;
+			 case 9:
+				 printf("Ha elejido la opcion 9- SALIR\nSaliendo del sistema....\nHas salido del sistema\n");
 				 break;
 		 }
 
-		 if(opcion != 7)
+		 if(opcion != 9)
 		 {
 			 system("pause");
 		 }

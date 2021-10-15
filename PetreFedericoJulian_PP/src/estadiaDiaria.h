@@ -10,6 +10,7 @@
 
 #include "funcionesInputs.h"
 #include "perro.h"
+#include "Duenio.h"
 
 #define OCUPADA 1
 #define DISPONIBLE 0
@@ -23,8 +24,7 @@ typedef struct{
 
 typedef struct{
 	int id;
-	char nombreDuenio[51];
-	int telefonoContacto;
+	Duenio Duenio;
 	int idPerro;
 	Fecha fecha;
 	int estadoReserva;
@@ -41,6 +41,7 @@ int estadiaDiaria_mostrarIDS(EstadiaDiaria* estadias, int cantidadEstadias);
 int estadiaDiaria_bajaEstadia(EstadiaDiaria* estadias, int cantidadEstadias);
 int estadiaDiaria_compararFechas(Fecha fecha1, Fecha fecha2);
 int estadiaDiaria_ordenarEstadiasPorFecha(EstadiaDiaria* estadias, int cantidadEstadias);
+int estadiaDiaria_encontrarPerroPorIDEnEstadia(EstadiaDiaria* estadias, int cantidadEstadias, int idPerro);
 
 
 

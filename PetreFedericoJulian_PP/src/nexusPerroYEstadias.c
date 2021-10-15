@@ -25,8 +25,8 @@ EstadiaDiaria nexusPerroYEstadias_reservarEstadia(int id, char* nombreDuenio, in
 	if(id>99999 && nombreDuenio != NULL)
 	{
 		estadia.id = id;
-		strcpy(estadia.nombreDuenio, nombreDuenio);
-		estadia.telefonoContacto = telefono;
+		strcpy(estadia.Duenio.nombreDuenio, nombreDuenio);
+		estadia.Duenio.telefono = telefono;
 		estadia.idPerro = idPerro;
 		estadia.fecha = fecha;
 		estadia.estadoReserva = OCUPADO;
@@ -45,16 +45,18 @@ EstadiaDiaria nexusPerroYEstadias_reservarEstadia(int id, char* nombreDuenio, in
  * @param cantidadPerritos longitud del listadod de perritos
  * @return Retorna 0 si se logro registrar la estadia exitosamente. -1 si los parametros son invalidos o el usuario decide no registrar la estadia
  */
-int nexusPerroYEstadias_AltaEstadia(EstadiaDiaria* estadias, int cantidadEstadias, int idEstadia, perro* perritos, int cantidadPerritos)
+int nexusPerroYEstadias_AltaEstadia(EstadiaDiaria* estadias, int cantidadEstadias, int idEstadia, perro* perritos, int cantidadPerritos, Duenio* duenios, int cantidadDuenios)
 {
 	int retorno = -1;
 	int estadiaDisponible;
-	char nombreAux[30];
-	int telefonoAux;
 	int idPerroAux;
 	int indicePerro;
 	Fecha fechaAux;
 	char respuesta;
+	int indiceDuenio;
+	int idDuenioAux;
+	char nombreAux[41];
+	int telefonoAux;
 
 	if(estadias != NULL && cantidadEstadias > 0)
 	{
@@ -62,8 +64,20 @@ int nexusPerroYEstadias_AltaEstadia(EstadiaDiaria* estadias, int cantidadEstadia
 
 		if(estadiaDisponible != -1)
 		{
-			funcionesInputs_pedirYValidarCadena("Ingrese nombre del duenio (max 30 caracteres -letras- sin espacios)\n", "Error, reingrese nombre del duenio (max 30 caracteres -letras- sin espacios)\n", 30, nombreAux);
-			funcionesInputs_pedirYValidarEntero("Ingrese telefono de contacto (celular)(min: 1500000000 - max: 1600000000)\n ", "Error, reingrese telefono de contacto (celular)(min: 1500000000 - max: 1600000000)\n ", 1500000000, 1600000000, &telefonoAux);
+			Duenio_mostrarIdDuenios(duenios, cantidadDuenios);
+			funcionesInputs_pedirYValidarEnteroSinRango("\nIngrese el ID del Duenio\n", "Error, reingrese el ID del Duenio (numérico)\n", &idDuenioAux);
+			indiceDuenio = Duenio_encontrarDuenioPorID(duenios, cantidadDuenios, idDuenioAux);
+			while(indiceDuenio == -1)
+			{
+				Duenio_mostrarIdDuenios(duenios, cantidadDuenios);
+				funcionesInputs_pedirYValidarEnteroSinRango("\nError ingrese el ID del Duenio\n", "Error, reingrese el ID del Duenio (numérico)\n", &idDuenioAux);
+				indiceDuenio = Duenio_encontrarDuenioPorID(duenios, cantidadDuenios, idDuenioAux);
+			}
+
+			strcpy(nombreAux, duenios[indiceDuenio].nombreDuenio);
+			telefonoAux = duenios[indiceDuenio].telefono;
+
+
 			perro_mostrarIdPerros(perritos, cantidadPerritos);
 			funcionesInputs_pedirYValidarEnteroSinRango("\nIngrese el ID del perro a cuidar\n", "Error, reingrese el ID del perro a cuidar (numérico)\n", &idPerroAux);
 			indicePerro = perro_encontrarPerroPorID(perritos, cantidadPerritos, idPerroAux);
@@ -139,8 +153,8 @@ int nexusPerroYEstadias_modificarEstadia(EstadiaDiaria* estadias, int cantidadEs
 				case 1:
 					printf("Has elejido la opcion 1- Modificar telefono de contacto\n");
 					funcionesInputs_pedirYValidarEntero("Ingrese nuevo telefono de contacto (celular)(1500000000 - 1600000000)\n ", "Error, reingrese nuevo telefono de contacto (celular)(1500000000 - 1600000000)\n ", 1500000000, 1600000000, &telefonoAux);
-					telefonoAnteriorAux = estadias[indiceEstadiaAux].telefonoContacto;
-					estadias[indiceEstadiaAux].telefonoContacto = telefonoAux;
+					telefonoAnteriorAux = estadias[indiceEstadiaAux].Duenio.telefono;
+					estadias[indiceEstadiaAux].Duenio.telefono = telefonoAux;
 					printf("Mostrando estadia modificada:\n%-20s %-20s %-25s %-15s %-25s\n", "ID RESERVA", "NOMBRE DUENIO", "TELEFONO DE CONTACTO", "ID PERRO", "FECHA DE RESERVA");
 					estadiaDiaria_mostrarEstadia(estadias[indiceEstadiaAux]);
 					funcionesInputs_pedirYValidarCaracter("Esta seguro que desea guardar este nuevo telefono de contacto?(s/n)\n", "Error, esta seguro que desea guardar este nuevo telefono de contacto?(s/n)\n", &respuesta);
@@ -151,7 +165,7 @@ int nexusPerroYEstadias_modificarEstadia(EstadiaDiaria* estadias, int cantidadEs
 					}
 					else
 					{
-						estadias[indiceEstadiaAux].telefonoContacto = telefonoAnteriorAux;
+						estadias[indiceEstadiaAux].Duenio.telefono  = telefonoAnteriorAux;
 						printf("se ha cancelado la modificacion de datos\n");
 					}
 					break;
@@ -188,6 +202,136 @@ int nexusPerroYEstadias_modificarEstadia(EstadiaDiaria* estadias, int cantidadEs
 		{
 			printf("Error, no se encontro la estadia\n");
 		}
+	}
+	return retorno;
+}
+
+/**
+ * @fn int nexusPerroYEstadias_contarEstadiasPerro(EstadiaDiaria*, int, perro)
+ * @brief Contar la cantidad de estadias reservadas que tiene un perrito
+ *
+ * @param estadias listado de estadias
+ * @param cantidadEstadias longitud de la lista
+ * @param perrito Perrito que se cuenta en las estadias
+ * @return Retorna 0 si el perrito no se encuentra en ninguna estadia reservada. Caso contrario retorna la cantidad de estadias reservadas que tiene
+ */
+int nexusPerroYEstadias_contarEstadiasPerro(EstadiaDiaria* estadias, int cantidadEstadias, perro perrito)
+{
+	int contadorPerro = 0;
+	int i;
+
+	if(estadias != NULL && cantidadEstadias > 0)
+	{
+		for(i=0; i<cantidadEstadias; i++)
+		{
+			if(estadias[i].estadoReserva == OCUPADO && estadias[i].idPerro == perrito.id)
+			{
+				contadorPerro++;
+			}
+		}
+
+	}
+	return contadorPerro;
+}
+
+/**
+ * @fn int nexusPerroYEstadias_encontrarYMostrarPerroConMasEstadias(EstadiaDiaria*, int, perro*, int)
+ * @brief Encuentra y muestra el perro con mas estadías reservadas (en caso de que haya dos o más perros con la misma cantidad de estadias, muestra el primero que encuentra)
+ *
+ * @param estadias Listado de las estadias a buscar
+ * @param cantidadEstadias longitud del listado
+ * @param perritos Listado de perritos. De esta lista mostrará el que mas reservas tenga
+ * @param cantidadPerritos longitud de la lista de perritos
+ * @return Retorna -1 en caso de parametros invalidos. 0 en caso de encontrar el perrito con mas estadias
+ */
+int nexusPerroYEstadias_encontrarYMostrarPerroConMasEstadias(EstadiaDiaria* estadias, int cantidadEstadias, perro* perritos, int cantidadPerritos)
+{
+	int retorno = -1;
+	int i;
+	int indicePerroMax;
+	int contadorPerro;
+	int contadorMax;
+	int indicePerro;
+
+	if(estadias != NULL && cantidadEstadias > 0 && perritos != NULL && cantidadPerritos > 0)
+	{
+		for(i=0 ; i<cantidadEstadias; i++)
+		{
+			indicePerro = perro_encontrarPerroPorID(perritos, cantidadPerritos, estadias[i].idPerro);
+			contadorPerro = nexusPerroYEstadias_contarEstadiasPerro(estadias, cantidadEstadias, perritos[indicePerro]);
+
+			if(i == 0 || contadorPerro > contadorMax)
+			{
+				contadorMax = contadorPerro;
+				indicePerroMax = indicePerro;
+				retorno = 0;
+
+			}
+		}
+
+		printf("Mostrando el perro con mas estadias reservadas...\n");
+		perro_mostrarPerro(perritos[indicePerroMax]);
+
+	}
+
+	return retorno;
+}
+
+int nexusPerroYEstadias_mostrarEstadiaPorIDPerro(EstadiaDiaria* estadias, int cantidadEstadias, int idPerro)
+{
+	int retorno = -1;
+	int i;
+
+	if(estadias != NULL && cantidadEstadias > 0 && idPerro>6999)
+	{
+		for(i=0; i<cantidadEstadias; i++)
+		{
+			if(estadias[i].idPerro == idPerro && estadias[i].estadoReserva == OCUPADO)
+			{
+				estadiaDiaria_mostrarEstadia(estadias[i]);
+				retorno = 0;
+			}
+		}
+
+	}
+	else
+	{
+		printf("Error al mostrar las estadias con ese perro\n");
+	}
+	return retorno;
+}
+
+/**
+ * @fn int nexusPerroYEstadias_listarEstadiasPerros(EstadiaDiaria*, int, perro*, int)
+ * @brief Muestra las estadias ordenadas por perro
+ *
+ * @param estadias
+ * @param cantidadEstadias
+ * @param perritos
+ * @param cantidadPerritos
+ * @return
+ */
+int nexusPerroYEstadias_listarEstadiasPerros(EstadiaDiaria* estadias, int cantidadEstadias, perro* perritos, int cantidadPerritos)
+{
+	int retorno = -1;
+	int i;
+	int indicePerro;
+
+	if(estadias != NULL && cantidadEstadias>0 && perritos != NULL && cantidadPerritos > 0)
+	{
+
+		printf("Mostrando listado de perros con sus estadias diarias reservadas\n");
+		for(i=0; i<cantidadPerritos; i++)
+		{
+			indicePerro = estadiaDiaria_encontrarPerroPorIDEnEstadia(estadias, cantidadEstadias, perritos[i].id);
+			if(indicePerro != -1)
+			{
+				printf("Monstrando estadias del perro con ID: %d - RAZA: %s\n", perritos[i].id, perritos[i].raza);
+				printf("%-20s %-20s %-25s %-15s %-25s\n", "ID RESERVA", "NOMBRE DUENIO", "TELEFONO DE CONTACTO", "ID PERRO", "FECHA DE RESERVA");
+				nexusPerroYEstadias_mostrarEstadiaPorIDPerro(estadias, cantidadEstadias, perritos[i].id);
+			}
+		}
+		retorno = 0;
 	}
 	return retorno;
 }
